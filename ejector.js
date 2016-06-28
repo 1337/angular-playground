@@ -3,8 +3,12 @@
     "use strict";
 
     angular
-        .module("playground", [])
-        .controller("EjectorController", EjectorController);
+        .module("playground", ["ionic"])
+        .config(logProviderConfig)
+        .controller("EjectorController", EjectorController)
+        .filter("reverse", function () {
+            return reverse;
+        });
 
     var deps = [
         "$scope",  // Not a service
@@ -52,10 +56,43 @@
             //noinspection Eslint
             eval($scope.eval.code);
         };
-        $scope.eval.code = "alert($scope.deps);";
+        $scope.eval.code = "$http.get('ejector.js').then(function (resp) {\n" +
+                           "    $log.info(resp.data);\n" +
+                           "});";
 
         $scope.angular = angular;
         $scope.deps = deps;
     }
     EjectorController.$inject = deps;
+
+
+    function logProviderConfig($provide) {
+        $provide.decorator("$log", function ($delegate, $injector) {
+            var levels = ["debug", "info", "warn", "error"];
+
+            angular.forEach(levels, function (level) {
+                var oldFunc = $delegate[level];
+
+                $delegate[level] = function () {
+                  var $rootScope = $injector.get("$rootScope"),
+                      args = [].slice.call(arguments);
+
+                    if (!$rootScope.logs) {
+                        $rootScope.logs = [];
+                    }
+
+                    $rootScope.logs.push(String(args));
+
+                    $delegate[level].oldFunc.apply(null, args);
+                };
+                $delegate[level].oldFunc = oldFunc;
+            });
+
+            return $delegate;
+        });
+    }
+
+    function reverse(items) {
+        return Array.prototype.slice.call(items || []).reverse();
+    }
 }());

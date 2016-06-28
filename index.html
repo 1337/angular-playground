@@ -9,36 +9,51 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
     <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.js"></script>
+    <script src="http://code.ionicframework.com/1.3.1/js/ionic.bundle.js"></script>
     <script src="ejector.js"></script>
     <style>
         body {
             margin: 10px;
         }
-        div {
-            margin: 10px 0;
+        code {
+            display: block;
+            margin: 5px 0;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+            white-space: pre-wrap;
         }
         textarea {
             font-family: monospace;
+            margin: 10px 0;
             width: 100%;
         }
     </style>
 </head>
 <body ng-controller="EjectorController">
-    <h1>Angular Playground</h1>
-    <p>Open your console, or use the text box below. <br>
-        All built-in services are &quot;ejected&quot; for you.
-    </p>
+    <div class="container-fluid">
+        <h1>Angular Playground</h1>
+        <p>Open your console, or use the text box below. <br>
+            All built-in services are &quot;ejected&quot; for you.
+        </p>
 
-    <div>
-        <button class="btn btn-primary" ng-click="eval()">Run</button>
-    </div>
-    <div>
-        <textarea class="form-control" ng-model="eval.code" cols="80" rows="30">
-            alert($scope.eval.code);
-        </textarea>
-    </div>
-    <div>
-        <button class="btn btn-primary" ng-click="eval()">Run</button>
+        <div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-primary"
+                        ng-click="eval()">Run</button>
+                <textarea class="form-control"
+                          ng-model="eval.code"
+                          cols="80" rows="30">
+                </textarea>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary"
+                        ng-click="eval()">Run</button>
+                <code ng-bind="log" title="{{ log }}"
+                      ng-repeat="log in logs | reverse track by $index"></code>
+            </div>
+        </div>
     </div>
 </body>
 </html>
