@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="playground">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular Playground</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+    <script src="https://cdn.jsdelivr.net/lodash/4.13.1/lodash.js"></script>
+    <script src="ejector.js"></script>
+    <style>
+        body {
+            margin: 10px;
+        }
+        div {
+            margin: 10px 0;
+        }
+        textarea {
+            font-family: monospace;
+            width: 100%;
+        }
+    </style>
+</head>
+<body ng-controller="EjectorController">
+    <h1>Angular Playground</h1>
+    <p>Open your console, or use the text box below. <br>
+        All built-in services are &quot;ejected&quot; for you.
+    </p>
+
+    <div>
+        <button class="btn btn-primary" ng-click="eval()">Run</button>
+    </div>
+    <div>
+        <textarea class="form-control" ng-model="eval.code" cols="80" rows="30">
+            alert($scope.eval.code);
+        </textarea>
+    </div>
+    <div>
+        <button class="btn btn-primary" ng-click="eval()">Run</button>
+    </div>
+</body>
+</html>
